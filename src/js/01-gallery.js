@@ -3,3 +3,7 @@ import { galleryItems } from './gallery-items';
 // Change code below this line
 
 console.log(galleryItems);
+
+import SimpleLightbox from "simplelightbox";
+
+console.log(SimpleLightbox);
