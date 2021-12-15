@@ -1,3 +1,5 @@
+var throttle = require('lodash.throttle');
+
 const refs = {
     form: document.querySelector('.feedback-form'),
     email: document.querySelector('input'), 
@@ -6,7 +8,7 @@ const refs = {
 
 
 refs.form.addEventListener('submit', onSubmit);
-refs.form.addEventListener('input', onFormInputs);
+refs.form.addEventListener('input', throttle(onFormInputs, 1000));
 // refs.email.addEventListener('input', onEmailInput);
 // refs.message.addEventListener('input', onMessageInput);
 
@@ -46,7 +48,7 @@ function renewFormInputs() {
         const formData = JSON.parse(savedData)
         console.log(formData);
 
-        
+
         refs.email.value = formData.email
         refs.message.value = formData.message
     }
