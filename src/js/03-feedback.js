@@ -46,6 +46,7 @@ function renewFormInputs() {
         const formData = JSON.parse(savedData)
         console.log(formData);
 
+        
         refs.email.value = formData.email
         refs.message.value = formData.message
     }
