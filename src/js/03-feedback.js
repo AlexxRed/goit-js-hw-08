@@ -7,10 +7,8 @@ const refs = {
 };
 
 // ================== check after reload  ==================
-const savedData = localStorage.getItem("feedback-form-state")
-if (savedData) {
-    renewFormInputs()
-}
+
+renewFormInputs()
 
 // ================== add listeners ==================
 
@@ -20,21 +18,20 @@ refs.form.addEventListener('submit', onSubmit);
 
 // ================== data storage ==================
 
-const formData = {
-    // email: "",
-    // message: "",
-    };
+// const savedData = {
+//     // email: "",
+//     // message: "",
+//     };
 
 // ==================  save input ==================
 function onFormInputs(e) {
+    let savedData = localStorage.getItem("feedback-form-state")
+    savedData = savedData ? JSON.parse(savedData) : {};
+
+    savedData[e.target.name] = e.target.value;
     
-    console.log(e);
-    // formData[e.target.name] = '';
-    
-    formData[e.target.name] = e.target.value;
-    
-    console.log(formData);
-    localStorage.setItem("feedback-form-state", JSON.stringify(formData))
+    console.log(savedData);
+    localStorage.setItem("feedback-form-state", JSON.stringify(savedData))
     
 };
 
@@ -61,24 +58,30 @@ function onSubmit(e) {
 
 // ================== take data after reload ==================
 function renewFormInputs() {
-    // const savedData = localStorage.getItem("feedback-form-state")
-        const formDataCome = JSON.parse(savedData)
-
-        if (formDataCome.email) {
-            refs.email.value = formDataCome.email
-        } else {
-            refs.email.value = ''
-        };
-
-        if (formDataCome.message) {
-            refs.message.value = formDataCome.message
-        } else {
-            refs.message.value = ''
-        }
-
-        console.log(formDataCome);
-        // refs.email.value = formData.email
-        // refs.message.value = formData.message
-
+    let savedData = localStorage.getItem("feedback-form-state")
+    
+    if (savedData) {
+        savedData = JSON.parse(savedData);
+        Object.entries(savedData).forEach(([name, value]) => {
+            refs.form.elements[name].value = value;
+        })
+    }
+    
 };
 
+
+        // if (formDataCome.email) {
+        //     refs.email.value = formDataCome.email
+        // } else {
+        //     refs.email.value = ''
+        // };
+
+        // if (formDataCome.message) {
+        //     refs.message.value = formDataCome.message
+        // } else {
+        //     refs.message.value = ''
+        // }
+
+        // console.log(formDataCome);
+        // refs.email.value = formData.email
+        // refs.message.value = formData.message
