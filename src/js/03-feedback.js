@@ -6,10 +6,15 @@ const refs = {
     message: document.querySelector('textarea'), 
 };
 
+// ================== check after reload  ==================
+const savedData = localStorage.getItem("feedback-form-state")
+if (savedData) {
+    renewFormInputs()
+}
 
-renewFormInputs()
+// ================== add listeners ==================
 
-refs.form.addEventListener('input', throttle(onFormInputs, 1000));
+refs.form.addEventListener('input', throttle(onFormInputs, 500));
 refs.form.addEventListener('submit', onSubmit);
 
 
@@ -54,11 +59,9 @@ function onSubmit(e) {
     
 };
 
-// ================== take data after reloud ==================
+// ================== take data after reload ==================
 function renewFormInputs() {
-    const savedData = localStorage.getItem("feedback-form-state")
-
-    if (savedData) {
+    // const savedData = localStorage.getItem("feedback-form-state")
         const formDataCome = JSON.parse(savedData)
 
         if (formDataCome.email) {
@@ -76,6 +79,6 @@ function renewFormInputs() {
         console.log(formDataCome);
         // refs.email.value = formData.email
         // refs.message.value = formData.message
-    }
+
 };
 
