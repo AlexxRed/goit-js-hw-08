@@ -63,13 +63,15 @@ function renewFormInputs() {
     
     if (savedData) {
         savedData = JSON.parse(savedData);
-        refs.email.value = savedData.email;
-        refs.message.value = savedData.message
 
         //make it with object metod
-        // Object.entries(savedData).forEach(([name, value]) => {
-        //     refs.form.elements[name].value = value;
-        // })
+        Object.entries(savedData).forEach(([name, value]) => {
+            refs.form.elements[name].value = value;
+        })
+
+        // why my logic not work???
+         // refs.email.value = savedData.email;
+        // refs.message.value = savedData.message
     };
     
 };
